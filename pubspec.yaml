@@ -1,0 +1,53 @@
+name: flutter_base
+description: A new Flutter base project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.5 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+  flutter_svg: ^1.1.6
+  cached_network_image: ^3.2.2
+  lottie: ^2.0.0
+  flutter_cache_manager: ^3.3.0
+
+  flutter_screenutil: ^5.6.0
+
+  get: ^4.6.5
+  get_storage: ^2.1.1
+
+  dio: ^4.0.6
+  pretty_dio_logger: ^1.1.1
+  connectivity_plus: ^3.0.2
+  package_info_plus: ^3.0.2
+
+  flutter_local_notifications: ^12.0.4
+
+  in_app_purchase: ^3.0.8
+
+  fluttertoast: ^8.1.1
+  intl: ^0.17.0
+  shared_preferences: ^2.1.0
+  permission_handler: ^10.2.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: SF-Compact-Rounded
+      fonts:
+        - asset: lib/res/font/SF-Compact-Rounded-Semibold.otf
+          weight: 600
