@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../view/base/screen_util/flutter_screenutil.dart';
 import 'app_color.dart';
 
 TextStyle textStyle30600() {

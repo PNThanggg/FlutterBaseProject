@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/constants/enums.dart';
 import '../../../../res/image/app_image.dart';
+import '../../../view/base/screen_util/flutter_screenutil.dart';
 import '../../resources/app_color.dart';
 import '../app_image_widget.dart';
 import 'flash.dart';

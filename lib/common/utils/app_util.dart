@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../build_constants.dart';
 import '../../presentation/base/app_controller.dart';
+import '../../presentation/view/base/screen_util/flutter_screenutil.dart';
 import '../../presentation/view/resources/app_color.dart';
 
 log(String text) {

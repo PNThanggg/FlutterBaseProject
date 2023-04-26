@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'build_constants.dart';
 import 'presentation/base/app_binding.dart';
+import 'presentation/view/base/screen_util/flutter_screenutil.dart';
 import 'presentation/view/resources/app_color.dart';
 import 'presentation/view/routers/app_page.dart';
 import 'presentation/view/routers/app_route.dart';

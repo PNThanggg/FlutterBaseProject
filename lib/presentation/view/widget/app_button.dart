@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../view/base/screen_util/flutter_screenutil.dart';
 import '../resources/app_color.dart';
 import 'app_touchable.dart';
 

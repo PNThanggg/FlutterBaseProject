@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_base/common/utils/app_util.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../presentation/view/base/screen_util/flutter_screenutil.dart';
 import '../../presentation/view/resources/app_color.dart';
 import '../../presentation/view/widget/app_touchable.dart';
+import 'app_util.dart';
 
 class AppPermission {
   static Future<PermissionStatus> checkPermission(BuildContext context, Permission permission,

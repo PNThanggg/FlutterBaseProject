@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../view/base/screen_util/flutter_screenutil.dart';
 import '../../widget/app_container.dart';
 import 'splash_controller.dart';
 
@@ -17,11 +17,19 @@ class SplashScreen extends GetView<SplashController> {
           children: [
             Text(
               "Splash screen",
-              style: TextStyle(color: Colors.black, fontSize: 40.0.sp, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 40.0.sp,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             Text(
               controller.version.value,
-              style: TextStyle(color: Colors.black, fontSize: 20.0.sp, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20.0.sp,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ],
         ),
