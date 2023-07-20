@@ -5,17 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import '../../build_constants.dart';
 import '../../presentation/base/app_controller.dart';
 import '../../presentation/view/base/screen_util/flutter_screenutil.dart';
 import '../../presentation/view/resources/app_color.dart';
-
-log(String text) {
-  if (BuildConstants.currentEnvironment != Environment.prod) {
-    final pattern = RegExp('.{1,800}');
-    pattern.allMatches(text).forEach((match) => debugPrint(match.group(0)));
-  }
-}
 
 String chooseContentByLanguage(String enContent, String viContent) {
   if (Get.find<AppController>().currentLocale.toLanguageTag() == 'vi-VN' && viContent.isNotEmpty) {
@@ -29,10 +21,10 @@ String capitalizeOnlyFirstLater(String originalText) {
   return "${originalText[0].toUpperCase()}${originalText.substring(1)}";
 }
 
-showToast(String text) {
+showToast(String text, {bool isLong = true}) {
   Fluttertoast.showToast(
     msg: text,
-    toastLength: Toast.LENGTH_LONG,
+    toastLength: isLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 3,
     backgroundColor: AppColor.black.withOpacity(0.9),

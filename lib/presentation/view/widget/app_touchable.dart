@@ -42,7 +42,7 @@ class AppTouchable extends StatelessWidget {
       decoration: decoration,
       child: TextButton(
         onPressed: onPressed,
-        onLongPress: onLongPressed,
+        onLongPress: onLongPressed ?? () {},
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(backgroundColor ?? Colors.transparent),
           overlayColor: MaterialStateProperty.all(rippleColor ?? Colors.transparent),

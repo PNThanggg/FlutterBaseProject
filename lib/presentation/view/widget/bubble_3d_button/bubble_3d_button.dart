@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../base/screen_util/flutter_screenutil.dart';
 import '../../resources/app_color.dart';
 import 'box_decoration.dart';
 import 'box_shadow.dart';
@@ -46,8 +46,7 @@ class Bubble3DButton extends StatelessWidget {
         padding: padding,
         margin: margin,
         decoration: BoxDecoration(
-          borderRadius:
-              borderRadius ?? BorderRadius.circular(radius ?? 20.0.sp),
+          borderRadius: borderRadius ?? BorderRadius.circular(radius ?? 20.0.sp),
           gradient: gradient,
           color: backgroundColor ?? Colors.white,
           boxShadow: [
