@@ -1,13 +1,17 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenceUtils {
+  static final PreferenceUtils _instance = PreferenceUtils._internal();
+
+  factory PreferenceUtils() => _instance;
+
+  PreferenceUtils._internal();
+
   static late final SharedPreferences _sharedPreferences;
-  static Future<SharedPreferences> get _instance async => _sharedPreferences;
 
   // call this method from iniState() function of mainApp().
-  static Future<SharedPreferences> init() async {
-    _sharedPreferences = await _instance;
-    return _sharedPreferences;
+  static Future<void> init() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
   }
 
   /// sets

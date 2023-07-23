@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/base/app_controller.dart';
+import '../../presentation/app/app_controller.dart';
 import '../../presentation/view/base/screen_util/flutter_screenutil.dart';
 import '../../presentation/view/resources/app_color.dart';
 

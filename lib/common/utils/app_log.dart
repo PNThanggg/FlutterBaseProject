@@ -1,3 +1,5 @@
+import 'package:flutter_base/build_constants.dart';
+
 import 'log/logger.dart';
 
 class AppLog {
@@ -10,30 +12,42 @@ class AppLog {
   );
 
   static debug(dynamic message) {
-    logger.d(message);
+    if (BuildConstants.currentEnvironment == Environment.dev) {
+      logger.d(message);
+    }
   }
 
   static info(dynamic message) {
-    // logger.i(message);
+    if (BuildConstants.currentEnvironment == Environment.dev) {
+      // logger.i(message);
 
-    loggerNoStack.i(message);
+      loggerNoStack.i(message);
+    }
   }
 
   static warning(dynamic message) {
-    loggerNoStack.w(message);
+    if (BuildConstants.currentEnvironment == Environment.dev) {
+      loggerNoStack.w(message);
+    }
   }
 
   static error(dynamic message) {
-    logger.e(message, 'Error');
+    if (BuildConstants.currentEnvironment == Environment.dev) {
+      logger.e(message, 'Error');
+    }
   }
 
   static verbose(dynamic message) {
-    logger.v(message);
+    if (BuildConstants.currentEnvironment == Environment.dev) {
+      logger.v(message);
+    }
   }
 
   static logWtf(dynamic message) {
-    // logger.wtf(message);
+    if (BuildConstants.currentEnvironment == Environment.dev) {
+      // logger.wtf(message);
 
-    loggerNoStack.wtf(message);
+      loggerNoStack.wtf(message);
+    }
   }
 }
