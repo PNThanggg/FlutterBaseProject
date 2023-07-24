@@ -1,6 +1,6 @@
 import 'package:flutter_base/build_constants.dart';
 
-import 'log/logger.dart';
+import '../base/log/logger.dart';
 
 class AppLog {
   static Logger logger = Logger(

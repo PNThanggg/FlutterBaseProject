@@ -44,9 +44,6 @@ class Logger {
   /// All logs with levels below this level will be omitted.
   static Level level = Level.verbose;
 
-  /// The current default implementation of log filter.
-  static LogFilter Function() defaultFilter = () => DevelopmentFilter();
-
   /// The current default implementation of log printer.
   static LogPrinter Function() defaultPrinter = () => PrettyPrinter();
 
@@ -57,7 +54,6 @@ class Logger {
 
   static final Set<OutputCallback> _outputCallbacks = {};
 
-  final LogFilter _filter;
   final LogPrinter _printer;
   final LogOutput _output;
   bool _active = true;
@@ -68,15 +64,11 @@ class Logger {
   /// defaults: [PrettyPrinter], [DevelopmentFilter] and [ConsoleOutput] will be
   /// used.
   Logger({
-    LogFilter? filter,
     LogPrinter? printer,
     LogOutput? output,
     Level? level,
-  })  : _filter = filter ?? defaultFilter(),
-        _printer = printer ?? defaultPrinter(),
+  })  : _printer = printer ?? defaultPrinter(),
         _output = output ?? defaultOutput() {
-    _filter.init();
-    _filter.level = level ?? Logger.level;
     _printer.init();
     _output.init();
   }
@@ -122,27 +114,25 @@ class Logger {
     }
 
     var logEvent = LogEvent(level, message, error, stackTrace);
-    if (_filter.shouldLog(logEvent)) {
-      for (var callback in _logCallbacks) {
-        callback(logEvent);
-      }
+    for (var callback in _logCallbacks) {
+      callback(logEvent);
+    }
 
-      var output = _printer.log(logEvent);
+    var output = _printer.log(logEvent);
 
-      if (output.isNotEmpty) {
-        var outputEvent = OutputEvent(logEvent, output);
-        // Issues with log output should NOT influence
-        // the main software behavior.
-        try {
-          for (var callback in _outputCallbacks) {
-            callback(outputEvent);
-          }
-          _output.output(outputEvent);
-        } catch (e, s) {
-          if (kDebugMode) {
-            print("e: $e");
-            print("s: $s");
-          }
+    if (output.isNotEmpty) {
+      var outputEvent = OutputEvent(logEvent, output);
+      // Issues with log output should NOT influence
+      // the main software behavior.
+      try {
+        for (var callback in _outputCallbacks) {
+          callback(outputEvent);
+        }
+        _output.output(outputEvent);
+      } catch (e, s) {
+        if (kDebugMode) {
+          print("e: $e");
+          print("s: $s");
         }
       }
     }
@@ -155,7 +145,6 @@ class Logger {
   /// Closes the logger and releases all resources.
   void close() {
     _active = false;
-    _filter.destroy();
     _printer.destroy();
     _output.destroy();
   }

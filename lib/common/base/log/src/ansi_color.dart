@@ -33,8 +33,7 @@ class AnsiColor {
 
   String call(String msg) {
     if (color) {
-      // ignore: unnecessary_brace_in_string_interps
-      return '${this}$msg$ansiDefault';
+      return '$this$msg$ansiDefault';
     } else {
       return msg;
     }
