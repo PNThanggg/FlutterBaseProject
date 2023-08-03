@@ -1,21 +1,21 @@
+import 'package:flutter_base/common/extension/log_extension.dart';
 import 'package:get/get.dart';
 
-import '../../../../common/utils/app_log.dart';
-import '../../../routers/app_route.dart';
+import '../../../route/app_route.dart';
 
 class SplashController extends GetxController {
   RxString version = ''.obs;
 
   @override
   void onInit() {
-    AppLog.info("Init splash");
+    "Init splash".info();
 
     super.onInit();
   }
 
   @override
   void onReady() async {
-    AppLog.info("Ready splash");
+    "Ready splash".info();
 
     super.onReady();
 
@@ -27,7 +27,7 @@ class SplashController extends GetxController {
 
   @override
   void onClose() {
-    AppLog.info("Close splash");
+    "Close splash".info();
 
     super.onClose();
   }

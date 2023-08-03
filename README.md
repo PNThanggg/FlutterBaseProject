@@ -11,16 +11,16 @@
         |-- views             ---> UI of the app
             |-- screens         ---> pages or screens
             |-- widget          ---> custom widgets
-            |-- routers         ---> optional application navigator
             |-- resources       ---> defind the resources like: color, style, ...
+        |-- route           ---> optional application navigator
     |-- domain                ---> domain layer
         |-- entities            ---> enterprise entitie
         |-- enums               ---> support to interact with data easier
         |-- repositories        ---> abstract class that define functionality get data
         |-- use_cases           ---> business processes
-    |-- data                  ---> data layer
-        |-- repositories        
+    |-- data                  ---> data layer      
         |-- remote              ---> handle remote data
+            |-- repositories  
         |-- local               ---> handle local storage persistance
     |-- di                    ---> Dependency Inversion
     |-- res                   ---> image, string, font

@@ -11,29 +11,31 @@ class AppLog {
     printer: PrettyPrinter(methodCount: 0),
   );
 
-  static debug(dynamic message) {
+  static debug(dynamic message, {String tag = "Debug"}) {
     if (BuildConstants.currentEnvironment == Environment.dev) {
-      logger.d(message);
+      // logger.d(message, tag);
+
+      loggerNoStack.d(message, tag);
     }
   }
 
-  static info(dynamic message) {
+  static info(dynamic message, {String tag = "Info"}) {
     if (BuildConstants.currentEnvironment == Environment.dev) {
       // logger.i(message);
 
-      loggerNoStack.i(message);
+      loggerNoStack.i(message, tag);
     }
   }
 
-  static warning(dynamic message) {
+  static warning(dynamic message, {String tag = "Warning"}) {
     if (BuildConstants.currentEnvironment == Environment.dev) {
-      loggerNoStack.w(message);
+      loggerNoStack.w(message, tag);
     }
   }
 
-  static error(dynamic message) {
+  static error(dynamic message, {String tag = "Error"}) {
     if (BuildConstants.currentEnvironment == Environment.dev) {
-      logger.e(message, 'Error');
+      logger.e(message, tag);
     }
   }
 
