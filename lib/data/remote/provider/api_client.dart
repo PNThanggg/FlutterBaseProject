@@ -2,28 +2,28 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:dio/io.dart';
 
 import '../../../build_constants.dart';
+import '../../../common/base/talker/talker.dart';
 import '../models/base_response.dart';
 import 'api_constant.dart';
 
 class ApiClient {
-  static const String GET = 'GET';
-  static const String POST = 'POST';
-  static const String DELETE = 'DELETE';
-  static const String PATCH = 'PATCH';
-  static const String PUT = 'PUT';
+  static const String get = 'GET';
+  static const String post = 'POST';
+  static const String delete = 'DELETE';
+  static const String path = 'PATCH';
+  static const String put = 'PUT';
 
   static const CONTENT_TYPE = 'Content-Type';
   static const CONTENT_TYPE_JSON = 'application/json; charset=utf-8';
 
   static final BaseOptions defaultOptions = BaseOptions(
     baseUrl: BuildConstants.apiUrl,
-    connectTimeout: ApiConstant.connectTimeout,
-    receiveTimeout: ApiConstant.receiveTimeout,
+    connectTimeout: const Duration(seconds: ApiConstant.connectTimeout),
+    receiveTimeout: const Duration(seconds: ApiConstant.receiveTimeout),
     responseType: ResponseType.plain,
     headers: {
       'Cache-Control': 'no-cache',
@@ -50,29 +50,32 @@ class ApiClient {
     options ??= defaultOptions;
     _dio = Dio(options);
     if (BuildConstants.currentEnvironment != Environment.prod) {
-      _dio?.interceptors.add(PrettyDioLogger(
-          requestHeader: false,
-          requestBody: true,
-          responseBody: true,
-          responseHeader: false,
-          error: true,
-          compact: true,
-          maxWidth: 90));
+      _dio?.interceptors.add(
+        TalkerDioLogger(
+          talker: Talker(),
+          settings: const TalkerDioLoggerSettings(
+            printRequestHeaders: true,
+            printResponseHeaders: true,
+          ),
+        ),
+      );
     }
   }
 
   static ApiClient get instance => ApiClient();
 
-  Future<BaseResponse> request<T extends BaseResponseData>(
-      {String endPoint = '',
-      String method = POST,
-      String? data,
-      Function? fromJsonModel,
-      Map<String, dynamic>? formData,
-      Map<String, dynamic>? queryParameters,
-      bool getFullResponse = false,
-      bool isEncrypt = true}) async {
+  Future<BaseResponse> request<T extends BaseResponseData>({
+    String endPoint = '',
+    String method = post,
+    String? data,
+    Function? fromJsonModel,
+    Map<String, dynamic>? formData,
+    Map<String, dynamic>? queryParameters,
+    bool getFullResponse = false,
+    bool isEncrypt = true,
+  }) async {
     var connectivityResult = await Connectivity().checkConnectivity();
+
     if (connectivityResult == ConnectivityResult.none) {
       return BaseResponse(
         result: false,
@@ -81,6 +84,7 @@ class ApiClient {
         code: 2106,
       );
     }
+
     if (endPoint.isEmpty) {
       return BaseResponse(
         result: false,
@@ -89,16 +93,22 @@ class ApiClient {
         code: -1111,
       );
     }
+
     try {
-      (_dio?.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (HttpClient client) {
-        client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      (_dio?.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+        HttpClient client = HttpClient();
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
         return client;
       };
+
       final response = await _dio?.request(endPoint,
-          data: formData != null ? FormData.fromMap(formData) : data ?? jsonEncode({}),
-          options:
-              Options(method: method, contentType: formData != null ? 'multipart/form-data' : null),
+          data: formData != null
+              ? FormData.fromMap(formData)
+              : data ?? jsonEncode({}),
+          options: Options(
+              method: method,
+              contentType: formData != null ? 'multipart/form-data' : null),
           queryParameters: queryParameters);
       if (_isSuccessful(response?.statusCode ?? -1)) {
         if (isEncrypt) {
@@ -127,16 +137,19 @@ class ApiClient {
           return apiResponse;
         }
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response != null) {
         // e.response.data có thể trả về _InternalLinkedHashMap hoặc 1 kiểu nào đó (String), tạm thời check thủ công theo runtimeType
         String errorMessage = e.response?.data != null &&
-                (e.response?.data.runtimeType ?? '').toString().contains('Map') &&
+                (e.response?.data.runtimeType ?? '')
+                    .toString()
+                    .contains('Map') &&
                 (e.response?.data['message'] ?? '').toString().isNotEmpty
             ? e.response?.data['message']
             : (e.response?.statusMessage ?? '').toString().isNotEmpty
                 ? e.response?.statusMessage
                 : e.message;
+
         return BaseResponse(
           result: false,
           data: null,
@@ -144,6 +157,7 @@ class ApiClient {
           code: e.response?.statusCode,
         );
       }
+
       if (e.error is SocketException) {
         SocketException socketException = e.error as SocketException;
         return BaseResponse(
@@ -153,6 +167,9 @@ class ApiClient {
           code: socketException.osError?.errorCode ?? 0,
         );
       }
+
+      if (e.type == DioExceptionType.connectionTimeout) {}
+
       return BaseResponse(
         result: false,
         data: null,
@@ -160,6 +177,7 @@ class ApiClient {
         code: -9999,
       );
     }
+
     return BaseResponse(
       result: false,
       data: null,

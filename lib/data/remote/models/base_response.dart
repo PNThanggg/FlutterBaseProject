@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class BaseResponse<T extends BaseResponseData> {
-  var code;
+  dynamic code;
   dynamic data;
   dynamic rawData;
   String? message;

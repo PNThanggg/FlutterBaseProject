@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../view/screen/home/home_binding.dart';
-import '../view/screen/home/home_screen.dart';
-import '../view/screen/splash/splash_binding.dart';
-import '../view/screen/splash/splash_screen.dart';
+import '../screen/home/home_binding.dart';
+import '../screen/home/home_screen.dart';
+import '../screen/splash/splash_binding.dart';
+import '../screen/splash/splash_screen.dart';
 import 'app_route.dart';
 
 class AppPage {
