@@ -1,27 +1,16 @@
-## Project Structure
+# flutter_base_project
 
-```
-|-- lib
-    |-- main.dart
-    |-- build_constants.dart    
-    |-- main_dev.dart
-    |-- main_prod.dart
-    |-- presentation          ---> application/feature layer
-        |-- base                ---> bass class
-        |-- views             ---> UI of the app
-            |-- screens         ---> pages or screens
-            |-- widget          ---> custom widgets
-            |-- resources       ---> defind the resources like: color, style, ...
-        |-- route           ---> optional application navigator
-    |-- domain                ---> domain layer
-        |-- entities            ---> enterprise entitie
-        |-- enums               ---> support to interact with data easier
-        |-- repositories        ---> abstract class that define functionality get data
-        |-- use_cases           ---> business processes
-    |-- data                  ---> data layer      
-        |-- remote              ---> handle remote data
-            |-- repositories  
-        |-- local               ---> handle local storage persistance
-    |-- di                    ---> Dependency Inversion
-    |-- res                   ---> image, string, font
-```
+Flutter base project with flutter 3.13.9
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
